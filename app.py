@@ -1,9 +1,19 @@
 import streamlit as st
 import json
 import os
+import sys
 from datetime import datetime
-from src.api_clients import AlphaVantageClient, NewsAPIClient, YFinanceClient
-from src.news_processor import NewsProcessor
+
+# Fix import paths for both local and Streamlit Cloud environments
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+try:
+    from src.api_clients import AlphaVantageClient, NewsAPIClient, YFinanceClient
+    from src.news_processor import NewsProcessor
+except ImportError:
+    # For Streamlit Cloud compatibility
+    from api_clients import AlphaVantageClient, NewsAPIClient, YFinanceClient
+    from news_processor import NewsProcessor
 
 # Page configuration
 st.set_page_config(
